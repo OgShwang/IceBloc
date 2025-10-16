@@ -5,6 +5,7 @@ configuration: Release
 platform: x64
 
 install:
+  # Install .NET 7 SDK
   - ps: choco install dotnet-7.0-sdk -y
 
 build_script:
@@ -15,6 +16,10 @@ build_script:
   - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
 
 artifacts:
-  - path: '**\bin\Release\**'
+  # Collect IceBloc main exe
+  - path: 'IceBloc\bin\Release\net7.0-windows\**'
     name: IceBloc-Release
 
+  # Collect IceBloc CLI exe
+  - path: 'IceBlocCLI\bin\Release\net7.0\**'
+    name: IceBlocCLI-Release
