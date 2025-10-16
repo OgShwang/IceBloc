@@ -1,3 +1,5 @@
+# AppVeyor configuration for IceBloc
+
 version: '{build}'
 image: Visual Studio 2022
 
@@ -12,15 +14,20 @@ build_script:
   # Restore NuGet packages
   - cmd: nuget restore IceBloc.sln
 
-  # Build the EXE projects explicitly
-  - cmd: msbuild IceBloc\IceBloc.csproj /p:Configuration=Release /m
-  - cmd: msbuild IceBlocCLI\IceBlocCLI.csproj /p:Configuration=Release /m
+  # Build the solution in Release mode
+  - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
 
 artifacts:
-  # Collect IceBloc main exe
-  - path: 'IceBloc\bin\Release\net7.0-windows\**'
+  # Collect IceBloc main EXE
+  - path: 'IceBloc\bin\Release\net7.0-windows\**\*.exe'
     name: IceBloc-Release
 
-  # Collect IceBloc CLI exe
-  - path: 'IceBlocCLI\bin\Release\net7.0\**'
+  # Collect IceBloc CLI EXE
+  - path: 'IceBlocCLI\bin\Release\net7.0\**\*.exe'
     name: IceBlocCLI-Release
+
+  # Optional: include DLL dependencies if needed
+  - path: 'IceBloc\bin\Release\net7.0-windows\**\*.dll'
+    name: IceBloc-Dependencies
+  - path: 'IceBlocCLI\bin\Release\net7.0\**\*.dll'
+    name: IceBlocCLI-Dependencies
