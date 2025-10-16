@@ -17,7 +17,7 @@ build_script:
 
 artifacts:
   # Collect IceBloc main exe
-  - path: 'IceBloc\bin\Release\net7.0-windows\**'
+  - path: 'IceBloc\bin\Release\net7.0\**'
     name: IceBloc-Release
 
   # Collect IceBloc CLI exe
