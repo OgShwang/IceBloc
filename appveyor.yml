@@ -1,0 +1,17 @@
+version: '{build}'
+image: Visual Studio 2022
+
+configuration: Release
+platform: x64
+
+install:
+  # Install .NET 7 SDK via Chocolatey
+  - ps: choco install dotnet-7.0-sdk -y
+  - ps: RefreshEnv
+
+build_script:
+  - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
+
+artifacts:
+  - path: '**\bin\Release\**'
+    name: IceBloc-Release
