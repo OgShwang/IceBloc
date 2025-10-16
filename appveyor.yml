@@ -5,14 +5,16 @@ configuration: Release
 platform: x64
 
 install:
-  # Install .NET 7 SDK via Chocolatey
   - ps: choco install dotnet-7.0-sdk -y
 
 build_script:
+  # Restore NuGet packages
+  - cmd: nuget restore IceBloc.sln
+
   # Build the solution in Release mode
   - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
 
 artifacts:
-  # Upload all binaries from the Release folder
   - path: '**\bin\Release\**'
     name: IceBloc-Release
+
