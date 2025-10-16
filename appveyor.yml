@@ -1,5 +1,3 @@
-# AppVeyor configuration for IceBloc
-
 version: '{build}'
 image: Visual Studio 2022
 
@@ -17,17 +15,15 @@ build_script:
   # Build the solution in Release mode
   - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
 
+  # DEBUG: List all files in the build output folders to find actual output
+  - cmd: dir /s /b IceBloc\bin
+  - cmd: dir /s /b IceBlocCLI\bin
+
 artifacts:
-  # Collect IceBloc main EXE
-  - path: 'IceBloc\bin\Release\net7.0-windows\**\*.exe'
+  # Collect IceBloc main exe / DLL (we’ll fix paths after seeing debug output)
+  - path: 'IceBloc\bin\Release\net7.0-windows\**'
     name: IceBloc-Release
 
-  # Collect IceBloc CLI EXE
-  - path: 'IceBlocCLI\bin\Release\net7.0\**\*.exe'
+  # Collect IceBloc CLI exe / DLL
+  - path: 'IceBlocCLI\bin\Release\net7.0\**'
     name: IceBlocCLI-Release
-
-  # Optional: include DLL dependencies if needed
-  - path: 'IceBloc\bin\Release\net7.0-windows\**\*.dll'
-    name: IceBloc-Dependencies
-  - path: 'IceBlocCLI\bin\Release\net7.0\**\*.dll'
-    name: IceBlocCLI-Dependencies
