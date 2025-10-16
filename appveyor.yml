@@ -16,10 +16,6 @@ build_script:
   - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
 
 artifacts:
-  # Collect IceBloc main exe
-  - path: 'IceBloc\bin\Release\net7.0\**'
+  # Collect all EXEs from any Release folder under the repo
+  - path: '**\bin\Release\net7.0\**'
     name: IceBloc-Release
-
-  # Collect IceBloc CLI exe
-  - path: 'IceBlocCLI\bin\Release\net7.0\**'
-    name: IceBlocCLI-Release
