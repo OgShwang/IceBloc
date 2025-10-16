@@ -12,10 +12,15 @@ build_script:
   # Restore NuGet packages
   - cmd: nuget restore IceBloc.sln
 
-  # Build the solution in Release mode
-  - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
+  # Build the EXE projects explicitly
+  - cmd: msbuild IceBloc\IceBloc.csproj /p:Configuration=Release /m
+  - cmd: msbuild IceBlocCLI\IceBlocCLI.csproj /p:Configuration=Release /m
 
 artifacts:
-  # Collect all EXEs from any Release folder under the repo
-  - path: '**\bin\Release\net7.0\**'
+  # Collect IceBloc main exe
+  - path: 'IceBloc\bin\Release\net7.0-windows\**'
     name: IceBloc-Release
+
+  # Collect IceBloc CLI exe
+  - path: 'IceBlocCLI\bin\Release\net7.0\**'
+    name: IceBlocCLI-Release
