@@ -13,17 +13,17 @@ build_script:
   - cmd: nuget restore IceBloc.sln
 
   # Build the solution in Release mode
-  - cmd: msbuild IceBloc.sln /p:Configuration=Release /m
-
-  # DEBUG: List all files in the build output folders to find actual output
-  - cmd: dir /s /b IceBloc\bin
-  - cmd: dir /s /b IceBlocCLI\bin
+  - cmd: msbuild IceBloc.sln /p:Configuration=Release /p:Platform=x64 /m
 
 artifacts:
-  # Collect IceBloc main exe / DLL (we’ll fix paths after seeing debug output)
-  - path: 'IceBloc\bin\Release\net7.0-windows\**'
+  # IceBloc main exe and DLLs
+  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*.exe'
+    name: IceBloc-Release
+  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*.dll'
     name: IceBloc-Release
 
-  # Collect IceBloc CLI exe / DLL
-  - path: 'IceBlocCLI\bin\Release\net7.0\**'
+  # IceBlocCLI exe and DLLs
+  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*.exe'
+    name: IceBlocCLI-Release
+  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*.dll'
     name: IceBlocCLI-Release
