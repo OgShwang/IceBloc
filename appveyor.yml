@@ -12,14 +12,22 @@ build_script:
   # Restore NuGet packages
   - cmd: nuget restore IceBloc.sln
 
-  # Build IceBloc and IceBlocCLI in Release mode as self-contained
-  - cmd: msbuild IceBloc.sln /p:Configuration=Release /p:Platform=x64 /p:PublishSingleFile=false /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /m
+  # Build the solution in Release mode
+  - cmd: msbuild IceBloc.sln /p:Configuration=Release /p:Platform=x64 /m
 
 artifacts:
-  # Collect everything from IceBloc output folder
-  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*'
-    name: IceBloc-Full
+  # IceBloc main exe, DLLs, and runtime files
+  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*.exe'
+    name: IceBloc-Release
+  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*.dll'
+    name: IceBloc-Release
+  - path: 'IceBloc\bin\x64\Release\net7.0-windows\**\*.json'
+    name: IceBloc-Release
 
-  # Collect everything from IceBlocCLI output folder
-  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*'
-    name: IceBlocCLI-Full
+  # IceBlocCLI exe, DLLs, and runtime files
+  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*.exe'
+    name: IceBlocCLI-Release
+  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*.dll'
+    name: IceBlocCLI-Release
+  - path: 'IceBlocCLI\bin\x64\Release\net7.0\**\*.json'
+    name: IceBlocCLI-Release
